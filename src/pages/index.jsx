@@ -5,7 +5,7 @@ import { getLatestData } from "./api/getDataApi";
 const index = () => {
   const [data, setData] = useState({})
   const [isLoading, setIsLoading] = useState(false)
-  const date = new Date(data.date);
+  const date = new Date(data?.date);
   const options = { day: "numeric", month: "short" };
   const formattedDate = date.toLocaleDateString("en-IN", options);
   const [weatherCondition, setWeatherCondition] = useState(data?.main ?? null)
