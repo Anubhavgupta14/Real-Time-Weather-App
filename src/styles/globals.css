@@ -18,7 +18,6 @@ p{
 }
 .main{
   width: 80%;
-  height: 80%;
   border-radius: 40px;
   display: flex;
   background-color: #5c9ce4;
@@ -31,8 +30,12 @@ p{
 .right{
   width: 70%;
   border-radius: 40px;
-  height: 100%;
   background-color: #e4f2ff;
+  padding: 30px 30px;
+}
+.welcome{
+  font-weight: 500;
+  font-size: 18px;
 }
 .location-icons{
   display: flex;
@@ -66,4 +69,82 @@ p{
   justify-content: center;
   gap: 5px;
   font-size: 24px;
+}
+.image-condition{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+.history{
+  height: 200px;
+  background-color: white;
+  margin-top: 30px;
+  border-radius: 20px;
+  padding: 20px 20px;
+}
+.history p{
+  font-size: 16px;
+  font-weight: 400;
+}
+.temp-trends{
+  margin-bottom: 20px;
+}
+.others{
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.cards{
+  width: 18%;
+  height: 100px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px 20px;
+}
+.card-icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #5c9ce4;
+  color: white;
+  border-radius: 10px;
+  font-size: 16px;
+  height: 30px;
+  width: 30px;
+}
+.top-card{
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+}
+.temp-card{
+  position: relative;
+}
+.cel2{
+  position: absolute;
+  top: 0;
+  font-size: 15px;
+  margin-left: 2px;
+}
+.cel3{
+  position: absolute;
+  top: 0;
+  font-size: 10px;
+  margin-left: 2px;
+}
+.avgTempdiv{
+  margin-top: 60px;
+  margin-inline: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.avgCard{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
 }
