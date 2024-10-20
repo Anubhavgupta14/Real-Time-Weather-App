@@ -22,6 +22,10 @@ p{
   display: flex;
   background-color: #5c9ce4;
 }
+.img{
+  background: url(/night.jpg) no-repeat;
+  background-size: contain;
+}
 .left{
   width: 30%;
   padding: 60px 15px 60px 40px;
@@ -44,6 +48,9 @@ p{
 }
 .location{
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .temp{
   position: relative;

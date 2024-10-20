@@ -7,12 +7,18 @@ import { TiWeatherCloudy } from "react-icons/ti";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-const Right = () => {
-  const PaidChart = {
+const Right = ({ data }) => {
+  const temperatures = data?.temp_list?.map((entry) => entry.temp);
+  const timeLabels = data?.temp_list?.map((entry) => {
+    const hour = parseInt(entry.time, 10);
+    return hour === 0 ? "12am" : hour > 12 ? `${hour - 12}pm` : `${hour}am`;
+  });
+
+  const WeatherChart = {
     series: [
       {
-        name: "Paid",
-        data: [25, 26, 25.4, 26.8, 24, 23.5, 23],
+        name: "Temperature",
+        data: temperatures, // Use temperatures array
       },
     ],
     options: {
@@ -48,7 +54,7 @@ const Right = () => {
       },
       xaxis: {
         show: true,
-        categories: ["1am", "2am", "3am", "4am", "5am", "6am", "7am"],
+        categories: timeLabels, // Use timeLabels array
         labels: {
           show: true,
         },
@@ -75,8 +81,8 @@ const Right = () => {
           <p>Temperature trends today</p>
           {typeof window !== "undefined" && (
             <Chart
-              options={PaidChart.options}
-              series={PaidChart.series}
+              options={WeatherChart.options}
+              series={WeatherChart.series}
               type="area"
               width={"100%"}
               height={"100%"}
@@ -96,7 +102,7 @@ const Right = () => {
               <CiDroplet />
             </div>
           </div>
-          <h2>87%</h2>
+          <h2>{data?.humidity ?? ""}%</h2>
         </div>
         <div className="cards">
           <div className="top-card">
@@ -105,7 +111,10 @@ const Right = () => {
               <TbTemperatureCelsius />
             </div>
           </div>
-          <h2 className="temp-card">25<span className="cel2">o</span></h2>
+          <h2 className="temp-card">
+            {data?.feels_like ?? ""}
+            <span className="cel2">o</span>
+          </h2>
         </div>
         <div className="cards">
           <div className="top-card">
@@ -114,7 +123,7 @@ const Right = () => {
               <FaWind />
             </div>
           </div>
-          <h2>3 mi/h</h2>
+          <h2>{data?.wind_speed ?? ""} mi/h</h2>
         </div>
         <div className="cards">
           <div className="top-card">
@@ -123,7 +132,7 @@ const Right = () => {
               <TiWeatherCloudy />
             </div>
           </div>
-          <h2>Haze</h2>
+          <h2>{data?.dominantCondition ?? ""}</h2>
         </div>
       </div>
     </div>
