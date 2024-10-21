@@ -72,7 +72,7 @@ const Right = ({ data }) => {
   };
   return (
     <div className="right">
-      <div>
+      <div className="right-head">
         <p className="welcome">Welcome back!</p>
         <p>Check out today's weather information</p>
       </div>
@@ -91,7 +91,7 @@ const Right = ({ data }) => {
         </div>
       </div>
 
-      <p className="welcome" style={{ marginTop: "20px" }}>
+      <p className="moreDetail" style={{ marginTop: "20px" }}>
         More details of today's weather
       </p>
       <div className="others">

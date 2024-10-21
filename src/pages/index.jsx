@@ -91,8 +91,14 @@ const index = () => {
     return () => clearInterval(intervalId);
   }, [cityIndex]);
 
-  console.log(cityIndex)
-  if (isLoading) return "Loading...";
+
+  if (isLoading) return (
+    <div className="parent-loading">
+      <div className="main-loading">
+
+      </div>
+    </div>
+  );
   return (
     <div className="parent">
       <div className={isNight ? "main img" : "main"}>
