@@ -12,6 +12,7 @@ p {
 
 .parent {
   background-color: #b5d8fe;
+  position: relative;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -19,6 +20,7 @@ p {
   justify-content: center;
 }
 .parent-loading {
+  position: relative;
   background-color: #b5d8fe;
   width: 100vw;
   height: 100vh;
@@ -228,6 +230,10 @@ p {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+.footer{
+  position: absolute;
+  bottom: 10px;
+}
 
 @media screen and (max-width:1450px) {
   .cards {
@@ -333,7 +339,7 @@ p {
   }
   .others{
     padding-inline: 30px;
-    padding-bottom: 30px;
+    padding-bottom: 50px;
   }
 }
 

@@ -3,6 +3,8 @@ import Left from "../../components/Left";
 import moment from "moment-timezone";
 import Right from "../../components/Right";
 import { getLatestData } from "./api/getDataApi";
+import toast, { Toaster } from "react-hot-toast";
+import Link from "next/link";
 const index = () => {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -78,6 +80,11 @@ const index = () => {
       setIsLoading(true);
       const data = await getLatestData({ city: cities[cityIndex] });
       setData(data.data);
+      setTimeout(() => {
+        if (data?.alert) {
+          toast.error("Warning temperature is above the threshold");
+        }
+      }, 1000);
     } catch (err) {
       console.log(err);
     } finally {
@@ -91,29 +98,52 @@ const index = () => {
     return () => clearInterval(intervalId);
   }, [cityIndex]);
 
-
-  if (isLoading) return (
-    <div className="parent-loading">
-      <div className="main-loading">
-
+  if (isLoading)
+    return (
+      <div className="parent-loading">
+        <div className="main-loading"></div>
+        <p className="footer">
+          Created by{" "}
+          <Link
+            style={{ color: "black" }}
+            target="_blank"
+            rel="noopener noreferrer"
+            href={"https://linkedin.com/in/anubhavgupta14"}
+          >
+            Anubhav Gupta
+          </Link>
+        </p>
       </div>
-    </div>
-  );
+    );
   return (
-    <div className="parent">
-      <div className={isNight ? "main img" : "main"}>
-        <Left
-          data={data}
-          formattedDate={formattedDate}
-          weatherCondition={weatherCondition}
-          currentTime={currentTime}
-          cityIndex={cityIndex}
-          setCityIndex={setCityIndex}
-          citiesLenght = {cities?.length ?? 0}
-        />
-        <Right data={data} />
+    <>
+      <Toaster />
+      <div className="parent">
+        <div className={isNight ? "main img" : "main"}>
+          <Left
+            data={data}
+            formattedDate={formattedDate}
+            weatherCondition={weatherCondition}
+            currentTime={currentTime}
+            cityIndex={cityIndex}
+            setCityIndex={setCityIndex}
+            citiesLenght={cities?.length ?? 0}
+          />
+          <Right data={data} />
+        </div>
+        <p className="footer">
+          Created by{" "}
+          <Link
+            style={{ color: "black" }}
+            target="_blank"
+            rel="noopener noreferrer"
+            href={"https://linkedin.com/in/anubhavgupta14"}
+          >
+            Anubhav Gupta
+          </Link>
+        </p>
       </div>
-    </div>
+    </>
   );
 };
 
