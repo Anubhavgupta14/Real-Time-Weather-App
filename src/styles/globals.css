@@ -55,6 +55,13 @@ p{
 .temp{
   position: relative;
   margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.arrows{
+  cursor: pointer;
+  font-size: 25px;
 }
 .main-temp{
   text-align: center;
