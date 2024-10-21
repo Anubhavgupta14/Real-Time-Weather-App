@@ -339,14 +339,14 @@ p {
 
 @media screen and (max-width:426px){
   .cards h2{
-    font-size: 10px;
+    font-size: 14px;
   }
   .cards{
-    width: 15%;
+    width: 39%;
     height: 45px;
   }
   .top-card p{
-    font-size: 10px;
+    font-size: 14px;
   }
   .main-loading{
     height: 100%;
