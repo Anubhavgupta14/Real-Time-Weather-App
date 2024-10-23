@@ -7,7 +7,7 @@ import { TiWeatherCloudy } from "react-icons/ti";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-const Right = ({ data }) => {
+const Right = ({ data, isCel, setIsCel }) => {
   const temperatures = data?.temp_list?.map((entry) => entry.temp);
   const timeLabels = data?.temp_list?.map((entry) => {
     const hour = parseInt(entry.time, 10);
@@ -73,7 +73,34 @@ const Right = ({ data }) => {
   return (
     <div className="right">
       <div className="right-head">
-        <p className="welcome">Welcome back!</p>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <p className="welcome">Welcome back!</p>
+          {isCel ? (
+            <button
+              className="btn"
+              onClick={() => {
+                setIsCel(false);
+              }}
+            >
+              Convert to Kelvin
+            </button>
+          ) : (
+            <button
+              className="btn"
+              onClick={() => {
+                setIsCel(true);
+              }}
+            >
+              Convert to Celcius
+            </button>
+          )}
+        </div>
         <p>Check out today's weather information</p>
       </div>
       <div className="history">
@@ -111,10 +138,17 @@ const Right = ({ data }) => {
               <TbTemperatureCelsius />
             </div>
           </div>
-          <h2 className="temp-card">
-            {data?.feels_like ?? ""}
-            <span className="cel2">o</span>
-          </h2>
+
+          {isCel ? (
+            <h2 className="temp-card">
+              {data?.feels_like ?? ""}
+              <span className="cel2">o</span>
+            </h2>
+          ) : (
+            <h2 className="temp-card">
+              {parseInt(data?.feels_like) + 273.15 ?? ""}K
+            </h2>
+          )}
         </div>
         <div className="cards">
           <div className="top-card">

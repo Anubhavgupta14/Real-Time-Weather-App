@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Left from "../../components/Left";
 import moment from "moment-timezone";
 import Right from "../../components/Right";
-import { getLatestData } from "./api/getDataApi";
+import { getLatestData, fetchFreshData } from "./api/getDataApi";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
 const index = () => {
@@ -15,6 +15,7 @@ const index = () => {
   const [isNight, setIsNight] = useState(false);
   const [currentTime, setCurrentTime] = useState("");
   const [cityIndex, setCityIndex] = useState(0);
+  const [isCel, setIsCel] = useState(true)
   const cities = [
     "Delhi",
     "Mumbai",
@@ -78,13 +79,21 @@ const index = () => {
   const fetchLatestData = async () => {
     try {
       setIsLoading(true);
-      const data = await getLatestData({ city: cities[cityIndex] });
-      setData(data.data);
+      let data = await getLatestData({ city: cities[cityIndex] });
+
       setTimeout(() => {
         if (data?.alert) {
           toast.error("Warning temperature is above the threshold");
         }
       }, 1000);
+
+      //if by chance no data is present in DB, so first generate data using fetch API and then fetch that data.
+      if (!data || !data.data) {
+        await fetchFreshData();
+        data = await getLatestData({ city: cities[cityIndex] }); 
+      }
+      setData(data.data);
+
     } catch (err) {
       console.log(err);
     } finally {
@@ -128,8 +137,9 @@ const index = () => {
             cityIndex={cityIndex}
             setCityIndex={setCityIndex}
             citiesLenght={cities?.length ?? 0}
+            isCel={isCel}
           />
-          <Right data={data} />
+          <Right data={data} isCel={isCel} setIsCel={setIsCel}/>
         </div>
         <p className="footer">
           Created by{" "}

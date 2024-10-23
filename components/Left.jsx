@@ -19,7 +19,8 @@ const Left = ({
   currentTime,
   cityIndex,
   setCityIndex,
-  citiesLenght
+  citiesLenght,
+  isCel,
 }) => {
   const condition = {
     0: {
@@ -59,16 +60,14 @@ const Left = ({
   };
 
   const handleChangeCity = (dir) => {
-    if(dir){
+    if (dir) {
       //forward
-      setCityIndex((prev)=> (prev+1)%citiesLenght)
-    }
-    else{
-      if(cityIndex==0){
-        setCityIndex(citiesLenght-1);
-      }
-      else{
-        setCityIndex((prev)=>prev-1);
+      setCityIndex((prev) => (prev + 1) % citiesLenght);
+    } else {
+      if (cityIndex == 0) {
+        setCityIndex(citiesLenght - 1);
+      } else {
+        setCityIndex((prev) => prev - 1);
       }
     }
   };
@@ -91,12 +90,28 @@ const Left = ({
         </div>
       </div>
       <div className="temp">
-        <MdArrowBackIos className="arrows" onClick={()=>{handleChangeCity(0)}} />
-        <h2 className="main-temp">
-          {data?.temp ?? null}
-          <span className="cel"> o</span>
-        </h2>
-        <MdArrowForwardIos className="arrows" onClick={()=>{handleChangeCity(1)}}/>
+        <MdArrowBackIos
+          className="arrows"
+          onClick={() => {
+            handleChangeCity(0);
+          }}
+        />
+        {isCel ? (
+          <h2 className="main-temp">
+            {data?.temp ?? null}
+            <span className="cel"> o</span>
+          </h2>
+        ) : (
+          <h2 className="main-temp">
+            {parseInt(data?.temp) + 273.15 ?? null}K
+          </h2>
+        )}
+        <MdArrowForwardIos
+          className="arrows"
+          onClick={() => {
+            handleChangeCity(1);
+          }}
+        />
       </div>
       <div className="conditions">
         {condition[weatherCondition]?.svg}
@@ -104,24 +119,42 @@ const Left = ({
       </div>
       <div className="avgTempdiv">
         <div className="avgCard">
-          <p style={{ position: "relative" }}>
-            {(data?.avgTemp ?? null)?.toFixed(2)}
-            <span className="cel3">o</span>
-          </p>
+          {isCel ? (
+            <p style={{ position: "relative" }}>
+              {(data?.avgTemp ?? null)?.toFixed(2)}
+              <span className="cel3">o</span>
+            </p>
+          ) : (
+            <p style={{ position: "relative" }}>
+              {(parseInt(data?.avgTemp) + 273.15 ?? null)?.toFixed(2)}K
+            </p>
+          )}
           <p>Average</p>
         </div>
         <div className="avgCard">
-          <p style={{ position: "relative" }}>
-            {data?.maxTemp ?? null}
-            <span className="cel3">o</span>
-          </p>
+          {isCel ? (
+            <p style={{ position: "relative" }}>
+              {(data?.maxTemp ?? null)?.toFixed(2)}
+              <span className="cel3">o</span>
+            </p>
+          ) : (
+            <p style={{ position: "relative" }}>
+              {(parseInt(data?.maxTemp) + 273.15 ?? null)?.toFixed(2)}K
+            </p>
+          )}
           <p>Maximum</p>
         </div>
         <div className="avgCard">
-          <p style={{ position: "relative" }}>
-            {data?.minTemp ?? null}
-            <span className="cel3">o</span>
-          </p>
+          {isCel ? (
+            <p style={{ position: "relative" }}>
+              {(data?.minTemp ?? null)?.toFixed(2)}
+              <span className="cel3">o</span>
+            </p>
+          ) : (
+            <p style={{ position: "relative" }}>
+              {(parseInt(data?.minTemp) + 273.15 ?? null)?.toFixed(2)}K
+            </p>
+          )}
           <p>Minimum</p>
         </div>
       </div>

@@ -234,6 +234,19 @@ p {
   position: absolute;
   bottom: 10px;
 }
+.btn{
+  color: white;
+  background-color: #5c9ce4;
+  border: 0;
+  height: 35px;
+  cursor: pointer;
+  border-radius: 20px;
+  padding-inline: 10px;
+  transition: all 0.2s ease-in;
+}
+.btn:hover{
+  background-color:#3c74b4;
+}
 
 @media screen and (max-width:1450px) {
   .cards {
